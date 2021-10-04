@@ -75,7 +75,7 @@ public class Input {
     }
 
     private HashSet<Integer> returnIntArrayToHashSet(int[] targetDecimalArray) {
-        HashSet<Integer> targetDecimalSet = new HashSet();
+        HashSet<Integer> targetDecimalSet = new HashSet<Integer>();
         for (int targetDecimal : targetDecimalArray) {
             targetDecimalSet.add(targetDecimal);
         }

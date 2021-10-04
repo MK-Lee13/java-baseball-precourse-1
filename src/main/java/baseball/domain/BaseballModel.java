@@ -16,11 +16,11 @@ public class BaseballModel {
     }
 
     public void initStrikeList() {
-        HashSet<Integer> strikeSet = new HashSet();
+        HashSet<Integer> strikeSet = new HashSet<Integer>();
         while (strikeSet.size() != 3) {
             strikeSet.add(Randoms.pickNumberInRange(1, 9));
         }
-        this.strikeList = new ArrayList(strikeSet);
+        this.strikeList = new ArrayList<Integer>(strikeSet);
     }
 
     public int getStrikeCount(int[] userInputArray) {
