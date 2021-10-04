@@ -16,7 +16,11 @@ public class Input {
         this.pattern = Pattern.compile("[1-9]");
     }
 
-    public void setUserInputString() {
+    public void setUserInputString(String userInputString) {
+        this.userInputString = userInputString;
+    }
+
+    public void setUserInputStringByRead() {
         this.userInputString = Console.readLine();
     }
 
