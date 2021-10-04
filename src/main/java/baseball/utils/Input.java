@@ -1,9 +1,8 @@
 package baseball.utils;
 
+import baseball.error.ErrorStatusCode;
 import nextstep.utils.Console;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -11,21 +10,46 @@ import java.util.regex.Pattern;
  */
 public class Input {
     private Pattern pattern;
+    private String userInputString;
 
     public Input() {
         this.pattern = Pattern.compile("[1-9]");
     }
 
-    public String getInputOneLine() {
-        String inputOneLineString = Console.readLine();
-        return inputOneLineString;
+    public void setUserInputString() {
+        this.userInputString = Console.readLine();
     }
 
-    public int typeCastingStringToInt(String inputOneLineString) {
+    public int getGameFinishUserInput() {
+        return typeCastingStringToInt(userInputString);
+    }
+
+    public int[] getGameStartUserInput() {
+        return typeCastingStringArrayToIntArray(userInputString.split(""));
+    }
+
+    public ErrorStatusCode validateGameFinishUserInput() {
+        if (!isDecimal(userInputString)) {
+            return ErrorStatusCode.IS_NOT_DECIMAL_INPUT;
+        }
+        int userInputDecimal = typeCastingStringToInt(userInputString);
+        return returnDecimalUserInputStatusCode(userInputDecimal);
+    }
+
+    public ErrorStatusCode validateGameStartUserInput() {
+        String[] userInputStringArray = userInputString.split("");
+        if (!isDecimalStringArray(userInputStringArray)) {
+            return ErrorStatusCode.IS_NOT_DECIMAL_INPUT;
+        }
+        int[] userInputDecimalArray = typeCastingStringArrayToIntArray(userInputStringArray);
+        return returnDecimalArrayUserInputStatusCode(userInputDecimalArray);
+    }
+
+    private int typeCastingStringToInt(String inputOneLineString) {
         return Integer.parseInt(inputOneLineString);
     }
 
-    public int[] typeCastingStringArrayToIntArray(String[] inputOneLineStringSplitList) {
+    private int[] typeCastingStringArrayToIntArray(String[] inputOneLineStringSplitList) {
         int stringArrayLength = inputOneLineStringSplitList.length;
         int[] result = new int[stringArrayLength];
         for (int i = 0; i < stringArrayLength; i++) {
@@ -34,14 +58,30 @@ public class Input {
         return result;
     }
 
-    public Boolean isDecimalBetweenOneAndTwo(int targetDecimal) {
+    private ErrorStatusCode returnDecimalArrayUserInputStatusCode(int[] targetDecimalArray) {
+        if (!isDecimalArrayValidLength(targetDecimalArray)) {
+            return ErrorStatusCode.IS_NOT_VALID_ARRAY_SIZE;
+        } else if (!isDecimalArrayElementsNotEqual(targetDecimalArray)) {
+            return ErrorStatusCode.IS_NOT_DECIMAL_ARRAY_ELEMENTS_NOT_EQUAL;
+        }
+        return ErrorStatusCode.CORRECT;
+    }
+
+    private ErrorStatusCode returnDecimalUserInputStatusCode(int targetDecimal) {
+        if (!isDecimalBetweenOneAndTwo(targetDecimal)) {
+            return ErrorStatusCode.IS_NOT_BETWEEN_ONE_AND_TWO;
+        }
+        return ErrorStatusCode.CORRECT;
+    }
+
+    private Boolean isDecimalBetweenOneAndTwo(int targetDecimal) {
         if (targetDecimal > 2 || targetDecimal < 1) {
             return false;
         }
         return true;
     }
 
-    public Boolean isDecimalArrayElementsNotEqual(int[] targetDecimalArray) {
+    private Boolean isDecimalArrayElementsNotEqual(int[] targetDecimalArray) {
         HashSet<Integer> targetDecimalSet = returnIntArrayToHashSet(targetDecimalArray);
         if (targetDecimalSet.size() != 3) {
             return false;
@@ -49,14 +89,14 @@ public class Input {
         return true;
     }
 
-    public Boolean isDecimalArrayValidLength(int[] targetDecimalArray) {
+    private Boolean isDecimalArrayValidLength(int[] targetDecimalArray) {
         if (targetDecimalArray.length == 3) {
             return true;
         }
         return false;
     }
 
-    public Boolean isDecimalStringArray(String[] targetStringArray) {
+    private Boolean isDecimalStringArray(String[] targetStringArray) {
         if (targetStringArray == null) {
             return false;
         }
@@ -67,7 +107,7 @@ public class Input {
         return false;
     }
 
-    public Boolean isDecimal(String targetString) {
+    private Boolean isDecimal(String targetString) {
         if (targetString == null) {
             return false;
         }
