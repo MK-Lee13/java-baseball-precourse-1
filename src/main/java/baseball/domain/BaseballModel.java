@@ -11,9 +11,7 @@ import java.util.List;
 public class BaseballModel {
     private List<Integer> strikeList;
 
-    public BaseballModel() {
-        initStrikeList();
-    }
+    public BaseballModel() { }
 
     public void initStrikeList() {
         HashSet<Integer> strikeSet = new HashSet<Integer>();
