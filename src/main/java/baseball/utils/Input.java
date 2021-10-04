@@ -28,7 +28,17 @@ public class Input {
         return result;
     }
 
+    public Boolean isDecimalArrayValidLength(int[] targetDecimalArray) {
+        if (targetDecimalArray.length == 3) {
+            return true;
+        }
+        return false;
+    }
+
     public Boolean isDecimalStringArray(String[] targetStringArray) {
+        if (targetStringArray == null) {
+            return false;
+        }
         int validDecimalValueCount = returnDecimalValueCount(targetStringArray);
         if (validDecimalValueCount == targetStringArray.length) {
             return true;
