@@ -1,5 +1,6 @@
 package baseball.utils;
 
+import baseball.error.ErrorStatusCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -7,6 +8,9 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -23,96 +27,82 @@ public class InputTest {
     }
 
     @Test
-    void typeCastingStringToInt() {
-        assertEquals(input.typeCastingStringToInt("0"), 0);
+    void getGameFinishUserInput() {
+        setMockUserInputString("0");
+        assertEquals(0, input.getGameFinishUserInput());
     }
 
     @Test
-    void typeCastingStringArrayToIntArray() {
-        String[] inputOneLineStringSplitList = {"1", "2", "3"};
+    void getGameStartUserInput() {
+        setMockUserInputString("123");
         int[] expectValue = {1, 2, 3};
-        assertArrayEquals(input.typeCastingStringArrayToIntArray(inputOneLineStringSplitList), expectValue);
+        assertArrayEquals(expectValue, input.getGameStartUserInput());
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {1, 2})
-    void isDecimalBetweenOneAndTwoReturnTrue(int targetDecimal) {
-        assertTrue(input.isDecimalBetweenOneAndTwo(targetDecimal));
+    @ValueSource(strings = {"1", "2"})
+    void validateGameFinishUserInputStatusCorrect(String userInputString) {
+        input.setUserInputString(userInputString);
+        assertEquals(ErrorStatusCode.CORRECT, input.validateGameFinishUserInput());
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {3, 4, 5, 6, 7, 8, 9})
-    void isDecimalBetweenOneAndTwoReturnFalseFromNotBetweenOneAndTwo(int targetDecimal) {
-        assertFalse(input.isDecimalBetweenOneAndTwo(targetDecimal));
+    @ValueSource(strings = {"3", "4", "5", "6", "7", "8", "9"})
+    void validateGameFinishUserInputStatusNotBetweenOneAndTwo(String userInputString) {
+        input.setUserInputString(userInputString);
+        assertEquals(ErrorStatusCode.IS_NOT_BETWEEN_ONE_AND_TWO, input.validateGameFinishUserInput());
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"123", "132", "241", "912", "123"})
-    void isDecimalArrayElementsNotEqualReturnTrue(String inputOneLineString) {
-        String[] targetStringArray = inputOneLineString.split("");
-        int[] targetDecimalArray = input.typeCastingStringArrayToIntArray(targetStringArray);
-        assertTrue(input.isDecimalArrayElementsNotEqual(targetDecimalArray));
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"111", "121", "131", "919", "232"})
-    void isDecimalArrayElementsNotEqualReturnFalseFromHasSameElements(String inputOneLineString) {
-        String[] targetStringArray = inputOneLineString.split("");
-        int[] targetDecimalArray = input.typeCastingStringArrayToIntArray(targetStringArray);
-        assertFalse(input.isDecimalArrayElementsNotEqual(targetDecimalArray));
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"123", "132", "241", "912", "123"})
-    void isDecimalArrayValidLengthReturnTrue(String inputOneLineString) {
-        String[] targetStringArray = inputOneLineString.split("");
-        int[] targetDecimalArray = input.typeCastingStringArrayToIntArray(targetStringArray);
-        assertTrue(input.isDecimalArrayValidLength(targetDecimalArray));
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"1111", "1122", "241123", "912444", "12", "1"})
-    void isDecimalArrayValidLengthReturnFalseFromNotValidLength(String inputOneLineString) {
-        String[] targetStringArray = inputOneLineString.split("");
-        int[] targetDecimalArray = input.typeCastingStringArrayToIntArray(targetStringArray);
-        assertFalse(input.isDecimalArrayValidLength(targetDecimalArray));
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"123", "132", "241", "912", "123"})
-    void isDecimalStringArrayReturnTrue(String targetString) {
-        String[] targetStringArray = targetString.split("");
-        assertTrue(input.isDecimalStringArray(targetStringArray));
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"-11", "asd", "100", "-1-1", "98-", "", " "})
-    void isDecimalStringArrayReturnFalseFromWrongFormat(String targetString) {
-        String[] targetStringArray = targetString.split("");
-        assertFalse(input.isDecimalStringArray(targetStringArray));
-    }
-
-    @ParameterizedTest
-    @NullSource
-    void isDecimalStringArrayReturnFalseFromNull(String[] targetStringArray) {
-        assertFalse(input.isDecimalStringArray(targetStringArray));
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"1", "2", "3", "4", "5", "6", "7", "8", "9"})
-    void isDecimalReturnTrue(String targetString) {
-        assertTrue(input.isDecimal(targetString));
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"0", "-1", "a", "as", "", " ", "111"})
-    void isDecimalReturnFalseFromWrongFormat(String targetString) {
-        assertFalse(input.isDecimal(targetString));
+    @ValueSource(strings = {"-1", "asd", " ", "", "0"})
+    void validateGameFinishUserInputStatusNotDecimalInput(String userInputString) {
+        input.setUserInputString(userInputString);
+        assertEquals(ErrorStatusCode.IS_NOT_DECIMAL_INPUT, input.validateGameFinishUserInput());
     }
 
     @ParameterizedTest
     @NullAndEmptySource
-    void isDecimalReturnFalseFromNullAndEmptySource(String targetString) {
-        assertFalse(input.isDecimal(targetString));
+    void validateGameFinishUserInputStatusNotDecimalInputAboutNull(String userInputString) {
+        input.setUserInputString(userInputString);
+        assertEquals(ErrorStatusCode.IS_NOT_DECIMAL_INPUT, input.validateGameFinishUserInput());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"123", "132", "241", "912", "123"})
+    void validateGameStartUserInputStatusCorrect(String userInputString) {
+        input.setUserInputString(userInputString);
+        assertEquals(ErrorStatusCode.CORRECT, input.validateGameStartUserInput());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"111", "121", "131", "919", "232"})
+    void validateGameStartUserInputStatusElementsEqual(String userInputString) {
+        input.setUserInputString(userInputString);
+        assertEquals(ErrorStatusCode.IS_NOT_DECIMAL_ARRAY_ELEMENTS_NOT_EQUAL, input.validateGameStartUserInput());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"1111", "1122", "241123", "912444", "12", "1"})
+    void validateGameStartUserInputStatusNotValidArraySize(String userInputString) {
+        input.setUserInputString(userInputString);
+        assertEquals(ErrorStatusCode.IS_NOT_VALID_ARRAY_SIZE, input.validateGameStartUserInput());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"0", "-1", "a", "as", "", " "})
+    void validateGameStartUserInputStatusNotDecimalInput(String userInputString) {
+        input.setUserInputString(userInputString);
+        assertEquals(ErrorStatusCode.IS_NOT_DECIMAL_INPUT, input.validateGameStartUserInput());
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    void validateGameStartUserInputStatusNotDecimalInputAboutNull(String userInputString) {
+        input.setUserInputString(userInputString);
+        assertEquals(ErrorStatusCode.IS_NOT_DECIMAL_INPUT, input.validateGameFinishUserInput());
+    }
+
+    private void setMockUserInputString(String userInputString) {
+        input.setUserInputString(userInputString);
     }
 }
