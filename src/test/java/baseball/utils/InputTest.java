@@ -35,6 +35,34 @@ class InputTest {
     }
 
     @ParameterizedTest
+    @ValueSource(ints = {1, 2})
+    void isDecimalBetweenOneAndTwoReturnTrue(int targetDecimal) {
+        assertTrue(input.isDecimalBetweenOneAndTwo(targetDecimal));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {3, 4, 5, 6, 7, 8, 9})
+    void isDecimalBetweenOneAndTwoReturnFalseFromNotBetweenOneAndTwo(int targetDecimal) {
+        assertFalse(input.isDecimalBetweenOneAndTwo(targetDecimal));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"123", "132", "241", "912", "123"})
+    void isDecimalArrayElementsNotEqualReturnTrue(String inputOneLineString) {
+        String[] targetStringArray = inputOneLineString.split("");
+        int[] targetDecimalArray = input.typeCastingStringArrayToIntArray(targetStringArray);
+        assertTrue(input.isDecimalArrayElementsNotEqual(targetDecimalArray));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"111", "121", "131", "919", "232"})
+    void isDecimalArrayElementsNotEqualReturnFalseFromHasSameElements(String inputOneLineString) {
+        String[] targetStringArray = inputOneLineString.split("");
+        int[] targetDecimalArray = input.typeCastingStringArrayToIntArray(targetStringArray);
+        assertFalse(input.isDecimalArrayElementsNotEqual(targetDecimalArray));
+    }
+
+    @ParameterizedTest
     @ValueSource(strings = {"123", "132", "241", "912", "123"})
     void isDecimalArrayValidLengthReturnTrue(String inputOneLineString) {
         String[] targetStringArray = inputOneLineString.split("");
