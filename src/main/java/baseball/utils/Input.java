@@ -1,14 +1,20 @@
 package baseball.utils;
 
 import nextstep.utils.Console;
-
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 import java.util.regex.Pattern;
 
 /**
  * Created by Minky on 2021-10-04
  */
 public class Input {
-    private Pattern pattern = Pattern.compile("[1-9]");
+    private Pattern pattern;
+
+    public Input() {
+        this.pattern = Pattern.compile("[1-9]");
+    }
 
     public String getInputOneLine() {
         String inputOneLineString = Console.readLine();
@@ -26,6 +32,21 @@ public class Input {
             result[i] = Integer.parseInt(inputOneLineStringSplitList[i]);
         }
         return result;
+    }
+
+    public Boolean isDecimalBetweenOneAndTwo(int targetDecimal) {
+        if (targetDecimal > 2 || targetDecimal < 1) {
+            return false;
+        }
+        return true;
+    }
+
+    public Boolean isDecimalArrayElementsNotEqual(int[] targetDecimalArray) {
+        HashSet<Integer> targetDecimalSet = returnIntArrayToHashSet(targetDecimalArray);
+        if (targetDecimalSet.size() != 3) {
+            return false;
+        }
+        return true;
     }
 
     public Boolean isDecimalArrayValidLength(int[] targetDecimalArray) {
@@ -53,10 +74,18 @@ public class Input {
         return pattern.matcher(targetString).matches();
     }
 
+    private HashSet<Integer> returnIntArrayToHashSet(int[] targetDecimalArray) {
+        HashSet<Integer> targetDecimalSet = new HashSet();
+        for (int targetDecimal : targetDecimalArray) {
+            targetDecimalSet.add(targetDecimal);
+        }
+        return targetDecimalSet;
+    }
+
     private int returnDecimalValueCount(String[] targetStringArray) {
         int validDecimalValueCount = 0;
-        for (int i = 0; i < targetStringArray.length; i++) {
-            validDecimalValueCount += isDecimalValueReturnPlus(targetStringArray[i]);
+        for (String targetString : targetStringArray) {
+            validDecimalValueCount += isDecimalValueReturnPlus(targetString);
         }
         return validDecimalValueCount;
     }
