@@ -31,10 +31,33 @@ public class BaseballModel {
         return result;
     }
 
+    public int getBallCount(int[] userInputArray) {
+        int result = 0;
+        for (int i = 0; i < 3; i++) {
+            result += getOneValueBallCount(i, userInputArray);
+        }
+        return result;
+    }
+
+    private int getOneValueBallCount(int targetIndex, int[] userInputArray) {
+        int result = 0;
+        for (int i = 0; i < 3; i++) {
+            result += compareStrikeListIntButIgnoreSameIndex(targetIndex, i, userInputArray[i]);
+        }
+        return result;
+    }
+
     private int compareInt(int targetInt, int compareInt) {
         if (targetInt == compareInt) {
             return 1;
         }
         return 0;
+    }
+
+    private int compareStrikeListIntButIgnoreSameIndex(int targetIndex, int compareIndex, int compareInt) {
+        if (targetIndex == compareIndex) {
+            return 0;
+        }
+        return compareInt(strikeList.get(targetIndex), compareInt);
     }
 }
