@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Created by Minky on 2021-10-04
  */
-class InputTest {
+public class InputTest {
     private Input input;
 
     @BeforeEach
