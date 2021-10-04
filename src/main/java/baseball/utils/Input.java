@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  * Created by Minky on 2021-10-04
  */
 public class Input {
-    private Pattern pattern = Pattern.compile("\\d");
+    private Pattern pattern = Pattern.compile("[1-9]");
 
     public String getInputOneLine() {
         String inputOneLineString = Console.readLine();
