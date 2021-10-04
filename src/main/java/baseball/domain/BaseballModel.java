@@ -25,6 +25,10 @@ public class BaseballModel {
         return strikeList;
     }
 
+    public void setStrikeList(List<Integer> strikeList) {
+        this.strikeList = strikeList;
+    }
+
     public int getStrikeCount(int[] userInputArray) {
         int result = 0;
         for (int i = 0; i < 3; i++) {
