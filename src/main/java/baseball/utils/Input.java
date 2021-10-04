@@ -27,4 +27,34 @@ public class Input {
         }
         return result;
     }
+
+    public Boolean isDecimalStringArray(String[] targetStringArray) {
+        int validDecimalValueCount = returnDecimalValueCount(targetStringArray);
+        if (validDecimalValueCount == targetStringArray.length) {
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean isDecimal(String targetString) {
+        if (targetString == null) {
+            return false;
+        }
+        return pattern.matcher(targetString).matches();
+    }
+
+    private int returnDecimalValueCount(String[] targetStringArray) {
+        int validDecimalValueCount = 0;
+        for (int i = 0; i < targetStringArray.length; i++) {
+            validDecimalValueCount += isDecimalValueReturnPlus(targetStringArray[i]);
+        }
+        return validDecimalValueCount;
+    }
+
+    private int isDecimalValueReturnPlus(String targetString) {
+        if (isDecimal(targetString)) {
+            return 1;
+        }
+        return 0;
+    }
 }
