@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.MockedStatic;
 
 import java.util.ArrayList;
@@ -18,12 +17,12 @@ import static org.mockito.Mockito.mockStatic;
 /**
  * Created by Minky on 2021-10-05
  */
-public class BaseballModelTest {
-    private BaseballModel baseballModel;
+public class StrikeModelTest {
+    private StrikeModel strikeModel;
 
     @BeforeEach
     void setUp() {
-        baseballModel = new BaseballModel();
+        strikeModel = new StrikeModel();
         setMockStrikeList();
     }
 
@@ -33,8 +32,8 @@ public class BaseballModelTest {
             mockRandoms.when(() -> Randoms.pickNumberInRange(anyInt(), anyInt()))
                     .thenReturn(1, 2, 3);
             List<Integer> expectStrikeList = Arrays.asList(1, 2, 3);
-            baseballModel.initStrikeList();
-            assertEquals(baseballModel.getStrikeList(), expectStrikeList);
+            strikeModel.initStrikeList();
+            assertEquals(strikeModel.getStrikeList(), expectStrikeList);
         }
     }
 
@@ -42,49 +41,49 @@ public class BaseballModelTest {
     @CsvSource(value = {"1, 2, 3", "4, 5, 6", "7, 8, 9"})
     void getStrikeList(int targetOne, int targetTwo, int targetThree) {
         List<Integer> mockStrikeList = getMockStrikeList(targetOne, targetTwo, targetThree);
-        baseballModel.setStrikeList(mockStrikeList);
-        assertEquals(mockStrikeList, baseballModel.getStrikeList());
+        strikeModel.setStrikeList(mockStrikeList);
+        assertEquals(mockStrikeList, strikeModel.getStrikeList());
     }
 
     @Test
     void getStrikeCountReturnOne() {
         int[] mockUserInputArray = {3, 2, 4};
-        assertEquals(1, baseballModel.getStrikeCount(mockUserInputArray));
+        assertEquals(1, strikeModel.getStrikeCount(mockUserInputArray));
     }
 
     @Test
     void getStrikeCountReturnTwo() {
         int[] mockUserInputArray = {1, 2, 4};
-        assertEquals(2, baseballModel.getStrikeCount(mockUserInputArray));
+        assertEquals(2, strikeModel.getStrikeCount(mockUserInputArray));
     }
 
     @Test
     void getStrikeCountReturnThree() {
         int[] mockUserInputArray = {1, 2, 3};
-        assertEquals(3, baseballModel.getStrikeCount(mockUserInputArray));
+        assertEquals(3, strikeModel.getStrikeCount(mockUserInputArray));
     }
 
     @Test
     void getBallCountReturnOne() {
         int[] mockUserInputArray = {4, 5, 2};
-        assertEquals(1, baseballModel.getBallCount(mockUserInputArray));
+        assertEquals(1, strikeModel.getBallCount(mockUserInputArray));
     }
 
     @Test
     void getBallCountReturnTwo() {
         int[] mockUserInputArray = {3, 2, 1};
-        assertEquals(2, baseballModel.getBallCount(mockUserInputArray));
+        assertEquals(2, strikeModel.getBallCount(mockUserInputArray));
     }
 
     @Test
     void getBallCountReturnThree() {
         int[] mockUserInputArray = {3, 1, 2};
-        assertEquals(3, baseballModel.getBallCount(mockUserInputArray));
+        assertEquals(3, strikeModel.getBallCount(mockUserInputArray));
     }
 
     private void setMockStrikeList() {
         List<Integer> mockStrikeList = Arrays.asList(1, 2, 3);
-        baseballModel.setStrikeList(mockStrikeList);
+        strikeModel.setStrikeList(mockStrikeList);
     }
 
     private List<Integer> getMockStrikeList(int targetOne, int targetTwo, int targetThree) {

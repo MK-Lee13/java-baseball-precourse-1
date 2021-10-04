@@ -8,10 +8,10 @@ import java.util.List;
 /**
  * Created by Minky on 2021-10-04
  */
-public class BaseballModel {
+public class StrikeModel {
     private List<Integer> strikeList;
 
-    public BaseballModel() { }
+    public StrikeModel() { }
 
     public void initStrikeList() {
         HashSet<Integer> strikeSet = new HashSet<Integer>();
