@@ -1,8 +1,7 @@
 package baseball.view;
 
+import baseball.domain.BaseballCounter;
 import baseball.error.ErrorStatusCode;
-
-import static baseball.message.HintMessage.*;
 import static baseball.message.InputMessage.*;
 
 /**
@@ -23,20 +22,8 @@ public class BaseballView {
         System.out.println(RESTART_OR_EXIT_MESSAGE);
     }
 
-    public void displayHintStrikeAndBallMessage(int strikeCount, int ballCount) {
-        System.out.println(String.format(STRIKE_AND_BALL_MESSAGE, strikeCount, ballCount));
-    }
-
-    public void displayHintStrikeMessage(int strikeCount) {
-        System.out.println(String.format(STRIKE_MESSAGE, strikeCount));
-    }
-
-    public void displayHintBallMessage(int ballCount) {
-        System.out.println(String.format(BALL_MESSAGE, ballCount));
-    }
-
-    public void displayHintNothingMessage() {
-        System.out.println(NOTHING_MESSAGE);
+    public void displayHintMessage(BaseballCounter baseballCounter) {
+        System.out.println(baseballCounter.getBaseballMessage());
     }
 
     public void displayErrorMessage(ErrorStatusCode errorStatusCode) {

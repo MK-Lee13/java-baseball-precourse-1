@@ -52,9 +52,11 @@ public class BaseballService {
     private BaseballStatusCode selectBaseballStatusCode(int strikeCount, int ballCount) {
         if (strikeCount > 0 && ballCount > 0) {
             return BaseballStatusCode.STRIKE_AND_BALL;
-        } else if (strikeCount > 0 && ballCount == 0) {
+        }
+        if (strikeCount > 0 && ballCount == 0) {
             return BaseballStatusCode.STRIKE;
-        } else if (strikeCount == 0 && ballCount > 0) {
+        }
+        if (strikeCount == 0 && ballCount > 0) {
             return BaseballStatusCode.BALL;
         }
         return BaseballStatusCode.NOTHING;

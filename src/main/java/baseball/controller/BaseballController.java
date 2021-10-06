@@ -60,15 +60,7 @@ public class BaseballController {
     }
 
     private void responseHintMessage(BaseballCounter baseballCounter) {
-        if (baseballCounter.getBaseballStatusCode() == BaseballStatusCode.NOTHING) {
-            baseballView.displayHintNothingMessage();
-        } else if (baseballCounter.getBaseballStatusCode() == BaseballStatusCode.STRIKE) {
-            baseballView.displayHintStrikeMessage(baseballCounter.getStrikeCount());
-        } else if (baseballCounter.getBaseballStatusCode() == BaseballStatusCode.BALL) {
-            baseballView.displayHintBallMessage(baseballCounter.getBallCount());
-        } else if (baseballCounter.getBaseballStatusCode() == BaseballStatusCode.STRIKE_AND_BALL) {
-            baseballView.displayHintStrikeAndBallMessage(baseballCounter.getStrikeCount(), baseballCounter.getBallCount());
-        }
+        baseballView.displayHintMessage(baseballCounter);
     }
 
     private void responseErrorMessage(ErrorStatusCode errorStatusCode) {
