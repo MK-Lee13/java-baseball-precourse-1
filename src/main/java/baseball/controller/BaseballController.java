@@ -72,14 +72,8 @@ public class BaseballController {
     }
 
     private void responseErrorMessage(ErrorStatusCode errorStatusCode) {
-        if (errorStatusCode == ErrorStatusCode.IS_NOT_BETWEEN_ONE_AND_TWO) {
-            baseballView.displayErrorIsNotBetweenOneAndTwoMessage();
-        } else if (errorStatusCode == ErrorStatusCode.IS_NOT_DECIMAL_ARRAY_ELEMENTS_NOT_EQUAL) {
-            baseballView.displayErrorIsNotDecimalArrayElementsNotEqualMessage();
-        } else if (errorStatusCode == ErrorStatusCode.IS_NOT_DECIMAL_INPUT) {
-            baseballView.displayErrorIsNotDecimalInputMessage();
-        } else if (errorStatusCode == ErrorStatusCode.IS_NOT_VALID_ARRAY_SIZE) {
-            baseballView.displayErrorIsNotValidArraySizeMessage();
+        if (errorStatusCode != ErrorStatusCode.CORRECT) {
+            baseballView.displayErrorMessage(errorStatusCode);
         }
     }
 }
