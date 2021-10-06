@@ -1,5 +1,10 @@
 package baseball.view;
 
+import baseball.error.ErrorStatusCode;
+
+import static baseball.message.HintMessage.*;
+import static baseball.message.InputMessage.*;
+
 /**
  * Created by Minky on 2021-10-04
  */
@@ -7,46 +12,34 @@ public class BaseballView {
     public BaseballView() { }
 
     public void displayNumericInputMessage() {
-        System.out.print("숫자를 입력해주세요 : ");
+        System.out.print(NUMERIC_INPUT_MESSAGE);
     }
 
     public void displayCorrectStrikesMessage() {
-        System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 끝");
+        System.out.println(CORRECT_STRIKE_MESSAGE);
     }
 
     public void displayRestartOrExitMessage() {
-        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+        System.out.println(RESTART_OR_EXIT_MESSAGE);
     }
 
     public void displayHintStrikeAndBallMessage(int strikeCount, int ballCount) {
-        System.out.println(String.format("%d스트라이크 %d볼", strikeCount, ballCount));
+        System.out.println(String.format(STRIKE_AND_BALL_MESSAGE, strikeCount, ballCount));
     }
 
     public void displayHintStrikeMessage(int strikeCount) {
-        System.out.println(String.format("%d스트라이크", strikeCount));
+        System.out.println(String.format(STRIKE_MESSAGE, strikeCount));
     }
 
     public void displayHintBallMessage(int ballCount) {
-        System.out.println(String.format("%d볼", ballCount));
+        System.out.println(String.format(BALL_MESSAGE, ballCount));
     }
 
     public void displayHintNothingMessage() {
-        System.out.println("낫싱");
+        System.out.println(NOTHING_MESSAGE);
     }
 
-    public void displayErrorIsNotBetweenOneAndTwoMessage() {
-        System.out.println("[ERROR] 1, 2 사이의 숫자 만 입력하세요.");
-    }
-
-    public void displayErrorIsNotDecimalInputMessage() {
-        System.out.println("[ERROR] 양수인 숫자 만 입력하세요.");
-    }
-
-    public void displayErrorIsNotDecimalArrayElementsNotEqualMessage() {
-        System.out.println("[ERROR] 중복 되지 않는 3자리의 숫자를 입력하세요.");
-    }
-
-    public void displayErrorIsNotValidArraySizeMessage() {
-        System.out.println("[ERROR] 3자리의 숫자를 입력하세요.");
+    public void displayErrorMessage(ErrorStatusCode errorStatusCode) {
+        System.out.println(errorStatusCode.getValue());
     }
 }
