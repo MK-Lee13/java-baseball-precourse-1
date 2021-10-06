@@ -63,7 +63,8 @@ public class Input {
     private ErrorStatusCode returnDecimalArrayUserInputStatusCode(int[] targetDecimalArray) {
         if (!isDecimalArrayValidLength(targetDecimalArray)) {
             return ErrorStatusCode.IS_NOT_VALID_ARRAY_SIZE;
-        } else if (!isDecimalArrayElementsNotEqual(targetDecimalArray)) {
+        }
+        if (!isDecimalArrayElementsNotEqual(targetDecimalArray)) {
             return ErrorStatusCode.IS_NOT_DECIMAL_ARRAY_ELEMENTS_NOT_EQUAL;
         }
         return ErrorStatusCode.CORRECT;
