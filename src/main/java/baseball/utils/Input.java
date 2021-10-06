@@ -9,12 +9,10 @@ import java.util.regex.Pattern;
  * Created by Minky on 2021-10-04
  */
 public class Input {
-    private Pattern pattern;
+    private static final Pattern pattern = Pattern.compile("[1-9]");
     private String userInputString;
 
-    public Input() {
-        this.pattern = Pattern.compile("[1-9]");
-    }
+    public Input() { }
 
     public void setUserInputString(String userInputString) {
         this.userInputString = userInputString;
