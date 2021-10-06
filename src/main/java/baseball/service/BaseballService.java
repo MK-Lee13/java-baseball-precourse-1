@@ -50,9 +50,7 @@ public class BaseballService {
     }
 
     private BaseballStatusCode selectBaseballStatusCode(int strikeCount, int ballCount) {
-        if (strikeCount == 3) {
-            return BaseballStatusCode.MATCH;
-        } else if (strikeCount > 0 && ballCount > 0) {
+        if (strikeCount > 0 && ballCount > 0) {
             return BaseballStatusCode.STRIKE_AND_BALL;
         } else if (strikeCount > 0 && ballCount == 0) {
             return BaseballStatusCode.STRIKE;

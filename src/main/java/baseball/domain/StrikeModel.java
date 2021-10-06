@@ -3,6 +3,7 @@ package baseball.domain;
 import nextstep.utils.Randoms;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ public class StrikeModel {
     public StrikeModel() { }
 
     public void initStrikeList() {
-        HashSet<Integer> strikeSet = new HashSet<Integer>();
+        LinkedHashSet<Integer> strikeSet = new LinkedHashSet<Integer>();
         while (strikeSet.size() != 3) {
             strikeSet.add(Randoms.pickNumberInRange(1, 9));
         }
